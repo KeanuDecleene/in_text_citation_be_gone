@@ -30,29 +30,4 @@ uvicorn app.main:app --reload
 
 Open [http://127.0.0.1:8000](http://127.0.0.1:8000).
 
-## Security
 
-- No API keys are required.
-- `.env` is ignored by Git.
-- Uploaded PDFs are validated by extension, content type, size, and PDF signature.
-- Files are processed in memory and returned directly to the browser.
-
-## Environment variables
-
-- `HOST`: host to bind the app to.
-- `PORT`: port to run the app on.
-- `MAX_UPLOAD_MB`: maximum accepted upload size in megabytes.
-
-## Tests
-
-```bash
-pytest
-```
-
-## GitHub
-
-This repo is ready to push to GitHub. Before publishing:
-
-1. Keep `.env` out of version control.
-2. If you deploy it, set environment variables in your host's secret manager rather than committing them.
-3. Review sample PDFs locally to confirm the citation-removal patterns fit your documents.
