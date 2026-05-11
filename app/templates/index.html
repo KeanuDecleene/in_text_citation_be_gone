@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ app_name }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='styles.css') }}" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero">
+        <p class="eyebrow">PDF readability tool</p>
+        <h1>{{ app_name }}</h1>
+        <p class="lede">
+          Upload a research PDF and get back a cleaned version with common
+          in-text citations removed while keeping the page layout and embedded
+          images intact as closely as possible.
+        </p>
+      </section>
+
+      <section class="card">
+        {% if error %}
+        <div class="alert" role="alert">{{ error }}</div>
+        {% endif %}
+
+        <form action="/process" method="post" enctype="multipart/form-data" class="upload-form">
+          <label class="dropzone" for="file">
+            <span class="dropzone-title">Choose a PDF</span>
+            <span class="dropzone-copy">
+              Files are processed in memory and returned directly to your
+              browser.
+            </span>
+            <input id="file" name="file" type="file" accept="application/pdf,.pdf" required />
+          </label>
+
+          <button type="submit">Remove in-text citations</button>
+        </form>
+
+        <div class="meta">
+          <p>Accepted format: PDF</p>
+          <p>Max upload size: {{ max_upload_mb }} MB</p>
+          <p>No API keys required</p>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
