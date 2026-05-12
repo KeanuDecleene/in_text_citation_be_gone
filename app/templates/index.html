@@ -7,41 +7,137 @@
     <link rel="stylesheet" href="{{ url_for('static', path='styles.css') }}" />
   </head>
   <body>
+    <div class="page-glow page-glow-left" aria-hidden="true"></div>
+    <div class="page-glow page-glow-right" aria-hidden="true"></div>
     <main class="shell">
-      <section class="hero">
-        <p class="eyebrow">PDF readability tool</p>
-        <h1>{{ app_name }}</h1>
-        <p class="lede">
-          Upload a research PDF and get back a cleaned version with common
-          in-text citations removed while keeping the page layout and embedded
-          images intact as closely as possible.
-        </p>
+      <header class="masthead">
+        <div class="brand-lockup">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span class="brand-name">Citation Cleaner PDF</span>
+        </div>
+        <p class="masthead-note">Made for dense papers, long essays, and cleaner reading sessions.</p>
+      </header>
+
+      <section class="hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Read the argument, not the parentheses</p>
+          <h1>Turn citation-heavy PDFs into something you can actually read.</h1>
+          <p class="lede">
+            Upload a research PDF and get back a version with common in-text
+            citations removed while keeping the original page structure and
+            embedded images as intact as possible.
+          </p>
+
+          <div class="signal-row" aria-label="Product highlights">
+            <p>Images stay in place</p>
+            <p>Reference list stays untouched</p>
+            <p>No API keys required</p>
+          </div>
+
+          <article class="editorial-panel">
+            <div class="panel-header">
+              <p class="panel-label">What changes</p>
+              <p class="panel-caption">The reading gets quieter, not flatter.</p>
+            </div>
+            <div class="comparison">
+              <div class="comparison-block comparison-before">
+                <p class="comparison-label">Before</p>
+                <p>
+                  The same claim can appear over and over
+                  <span class="ghost-citation">(Smith, 2020; Alvarez, 2021)</span>
+                  and break the rhythm of a long argument.
+                </p>
+              </div>
+              <div class="comparison-block comparison-after">
+                <p class="comparison-label">After</p>
+                <p>
+                  The same claim can appear over and over and keep the rhythm of
+                  a long argument.
+                </p>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <section class="control-card">
+          <div class="card-heading">
+            <p class="card-kicker">Upload a document</p>
+            <h2>Return a cleaner PDF in one step.</h2>
+            <p class="card-copy">
+              Files are validated, processed in memory, and returned directly to
+              your browser.
+            </p>
+          </div>
+
+          {% if error %}
+          <div class="alert" role="alert">{{ error }}</div>
+          {% endif %}
+
+          <form action="/process" method="post" enctype="multipart/form-data" class="upload-form">
+            <label class="dropzone" for="file">
+              <span class="dropzone-icon" aria-hidden="true"></span>
+              <span class="dropzone-title">Choose a PDF</span>
+              <span class="dropzone-copy">
+                Drag one in here or click to browse your files.
+              </span>
+              <span class="dropzone-button">Browse files</span>
+              <input id="file" name="file" type="file" accept="application/pdf,.pdf" required />
+            </label>
+
+            <p id="file-status" class="file-status" aria-live="polite">No file selected yet.</p>
+
+            <button type="submit">Remove in-text citations</button>
+          </form>
+
+          <div class="trust-grid">
+            <article>
+              <span class="trust-value">{{ max_upload_mb }} MB</span>
+              <p>Max upload size</p>
+            </article>
+            <article>
+              <span class="trust-value">PDF only</span>
+              <p>Signature and type checks</p>
+            </article>
+            <article>
+              <span class="trust-value">In memory</span>
+              <p>No permanent upload storage</p>
+            </article>
+          </div>
+        </section>
       </section>
 
-      <section class="card">
-        {% if error %}
-        <div class="alert" role="alert">{{ error }}</div>
-        {% endif %}
+      <section class="details-grid">
+        <article class="info-card">
+          <p class="info-kicker">How it works</p>
+          <ol class="steps">
+            <li>Upload a citation-heavy PDF from your browser.</li>
+            <li>Common in-text citation patterns are removed from text blocks.</li>
+            <li>The cleaned PDF is returned with page layout and images preserved as closely as possible.</li>
+          </ol>
+        </article>
 
-        <form action="/process" method="post" enctype="multipart/form-data" class="upload-form">
-          <label class="dropzone" for="file">
-            <span class="dropzone-title">Choose a PDF</span>
-            <span class="dropzone-copy">
-              Files are processed in memory and returned directly to your
-              browser.
-            </span>
-            <input id="file" name="file" type="file" accept="application/pdf,.pdf" required />
-          </label>
-
-          <button type="submit">Remove in-text citations</button>
-        </form>
-
-        <div class="meta">
-          <p>Accepted format: PDF</p>
-          <p>Max upload size: {{ max_upload_mb }} MB</p>
-          <p>No API keys required</p>
-        </div>
+        <article class="info-card">
+          <p class="info-kicker">Best for</p>
+          <ul class="fit-list">
+            <li>Research essays and literature reviews</li>
+            <li>Dense theory readings and course packs</li>
+            <li>Drafts where citation clutter slows down comprehension</li>
+          </ul>
+        </article>
       </section>
     </main>
+    <script>
+      const fileInput = document.getElementById("file");
+      const fileStatus = document.getElementById("file-status");
+
+      if (fileInput && fileStatus) {
+        fileInput.addEventListener("change", () => {
+          const file = fileInput.files && fileInput.files[0];
+          fileStatus.textContent = file
+            ? `Ready to clean: ${file.name}`
+            : "No file selected yet.";
+        });
+      }
+    </script>
   </body>
 </html>

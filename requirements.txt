@@ -1,4 +1,5 @@
 fastapi==0.136.1
+Jinja2==3.1.6
 PyMuPDF==1.27.2.3
 python-multipart==0.0.28
 uvicorn==0.46.0
