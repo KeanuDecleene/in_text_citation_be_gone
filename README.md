@@ -30,18 +30,3 @@ uvicorn app.main:app --reload
 
 Open [http://127.0.0.1:8000](http://127.0.0.1:8000).
 
-## Free hosting
-
-GitHub Pages will not run this app by itself because GitHub Pages is for static HTML, CSS, and JavaScript sites, while this project needs a live Python/FastAPI backend to process uploaded PDFs.
-
-The simplest free option for this repo is Render. This project includes a root-level `render.yaml` file so you can deploy it as a Render Blueprint with minimal setup.
-
-Typical flow:
-
-1. Push the repo to GitHub.
-2. In Render, create a new Blueprint and connect this repository.
-3. Keep the default `render.yaml` path.
-4. Deploy the web service.
-5. Add the resulting `onrender.com` URL to your portfolio site, or attach your own custom domain if you have one.
-
-For local development, nothing changes. You can still run the app with Uvicorn as shown above.
