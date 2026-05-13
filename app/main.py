@@ -64,6 +64,11 @@ async def home(request: Request) -> HTMLResponse:
     return _render_home(request)
 
 
+@app.get("/health")
+async def healthcheck() -> dict[str, str]:
+    return {"status": "ok"}
+
+
 @app.post("/process")
 async def process_pdf(request: Request, file: UploadFile = File(...)) -> Response:
     try:
