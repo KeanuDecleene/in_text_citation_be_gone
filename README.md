@@ -2,12 +2,14 @@
 
 Citation Cleaner PDF is a small FastAPI web app that accepts a PDF, removes common in-text citations, and returns a cleaned PDF while preserving the original page structure and embedded images as closely as possible.
 
+## Website
+https://in-text-citation-be-gone.onrender.com/
+
 ## What it does
 
 - Uploads a PDF directly in the browser.
 - Removes common citation styles such as `(Smith, 2020)`, `Johnson (2021)`, and `[12]`.
 - Preserves page dimensions, page count, and embedded images.
-- Avoids storing uploads on disk by processing files in memory.
 - Skips content after headings like `References`, `Bibliography`, or `Works Cited` so the reference list is not rewritten.
 
 ## What it does not guarantee
